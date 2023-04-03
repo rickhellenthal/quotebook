@@ -1,8 +1,12 @@
+import { IGroup } from "./IGroup";
+
 export interface IQuote {
 	/**
 	 * A unique Guid
 	 */
 	id: string;
-	name: string;
+	author: string;
 	quote: string; // TODO will be a list later
+	date: Date;
+	group: IGroup;
 }

@@ -1,7 +1,7 @@
 import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote } from "@ionic/react";
 
 import { useLocation } from "react-router-dom";
-import { settingsOutline, settingsSharp, peopleCircleOutline, peopleCircleSharp } from "ionicons/icons";
+import { settingsOutline, settingsSharp, peopleCircleOutline, peopleCircleSharp, homeOutline, homeSharp } from "ionicons/icons";
 import "./Menu.css";
 import { mockGroups } from "../mocks/mocks";
 
@@ -13,6 +13,12 @@ interface AppPage {
 }
 
 const appPages: AppPage[] = [
+	{
+		title: "Home",
+		url: "/home",
+		iosIcon: homeOutline,
+		mdIcon: homeSharp,
+	},
 	{
 		title: "Settings",
 		url: "/settings",
@@ -40,7 +46,7 @@ const Menu: React.FC = () => {
 									lines="none"
 									detail={false}
 								>
-									<IonIcon aria-hidden="true" slot="start" ios={peopleCircleOutline} md={peopleCircleSharp} />
+									<IonIcon aria-hidden="true" slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
 									<IonLabel>{appPage.title}</IonLabel>
 								</IonItem>
 							</IonMenuToggle>
