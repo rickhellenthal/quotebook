@@ -1,4 +1,4 @@
-import { IonApp, IonRouterOutlet, IonSplitPane, setupIonicReact } from "@ionic/react";
+import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonSplitPane, IonTabBar, IonTabButton, IonTabs, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router-dom";
 import Menu from "./components/Menu";
@@ -24,6 +24,8 @@ import "./theme/variables.css";
 import { GroupRoute } from "./routes/groupRoute/GroupRoute";
 import { SettingsRoute } from "./routes/settingsRoute/SettingsRoute";
 import { HomeRoute } from "./routes/homeRoute/HomeRoute";
+import { playCircle, radio, library, search } from "ionicons/icons";
+import { MainTabs } from "./routes/MainTabs";
 
 setupIonicReact();
 
@@ -33,19 +35,9 @@ export const App: React.FC = () => {
 			<IonReactRouter>
 				<IonSplitPane contentId="main">
 					<Menu />
+
 					<IonRouterOutlet id="main">
-						<Route path="/" exact={true}>
-							<Redirect to="/home" />
-						</Route>
-						<Route path="/home" exact={true}>
-							<HomeRoute />
-						</Route>
-						<Route path="/settings" exact={true}>
-							<SettingsRoute />
-						</Route>
-						<Route path="/groups/:id" exact={true}>
-							<GroupRoute />
-						</Route>
+						<MainTabs />
 					</IonRouterOutlet>
 				</IonSplitPane>
 			</IonReactRouter>

@@ -14,12 +14,6 @@ interface AppPage {
 
 const appPages: AppPage[] = [
 	{
-		title: "Home",
-		url: "/home",
-		iosIcon: homeOutline,
-		mdIcon: homeSharp,
-	},
-	{
 		title: "Settings",
 		url: "/settings",
 		iosIcon: settingsOutline,
@@ -42,7 +36,7 @@ const Menu: React.FC = () => {
 								<IonItem
 									className={location.pathname === appPage.url ? "selected" : ""}
 									routerLink={appPage.url}
-									routerDirection="none"
+									routerDirection="forward" // https://ionicframework.com/docs/api/nav to maybe go to forware
 									lines="none"
 									detail={false}
 								>
@@ -62,7 +56,7 @@ const Menu: React.FC = () => {
 								<IonItem
 									className={location.pathname === `/groups/${group.id}` ? "selected" : ""}
 									routerLink={`/groups/${group.id}`}
-									routerDirection="none"
+									routerDirection="forward"
 									lines="none"
 									detail={false}
 								>

@@ -6,5 +6,9 @@ export const GroupRoute: React.FC = () => {
 	const { id } = useParams<{ id: string }>();
 	const group = mockGroups.filter((x) => x.id === id)[0];
 
-	return <Page title={group?.name || id}>Group content</Page>;
+	return (
+		<Page title={group?.name || id} backButton>
+			Group content
+		</Page>
+	);
 };

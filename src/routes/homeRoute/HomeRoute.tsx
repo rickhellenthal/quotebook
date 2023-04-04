@@ -9,7 +9,7 @@ export const HomeRoute: React.FC = () => {
 	return (
 		<Page title={"Home"}>
 			{quotes.map((quote) => (
-				<IonCard>
+				<IonCard key={quote.id}>
 					<IonCardHeader>
 						<IonCardSubtitle>{quote.quote}</IonCardSubtitle>
 						{/* <IonCardTitle>{quote.date.toISOString()}</IonCardTitle> */}
@@ -19,12 +19,6 @@ export const HomeRoute: React.FC = () => {
 					</IonCardContent>
 				</IonCard>
 			))}
-
-			<IonFab horizontal="end" vertical="bottom">
-				<IonFabButton>
-					<IonIcon icon={addOutline} />
-				</IonFabButton>
-			</IonFab>
 		</Page>
 	);
 };
