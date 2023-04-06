@@ -24,6 +24,7 @@ import { GroupRoute } from "./groupRoute/GroupRoute";
 import { HomeRoute } from "./homeRoute/HomeRoute";
 import { SettingsRoute } from "./settingsRoute/SettingsRoute";
 import { CreateRoute } from "./createRoute/CreateRoute";
+import { QuotesRoute } from "./quotesRoute/QuotesRoute";
 
 export const MainTabs = () => {
 	return (
@@ -37,12 +38,15 @@ export const MainTabs = () => {
 				<Route path="/home" exact={true}>
 					<HomeRoute />
 				</Route>
+				<Route path="/quotes" exact={true}>
+					<QuotesRoute />
+				</Route>
 				<Route path="/create" exact={true}>
 					<CreateRoute />
 				</Route>
 
 				{/* Menu routes */}
-				<Route path="/settings" exact={true}>
+				<Route path="/account" exact={true}>
 					<SettingsRoute />
 				</Route>
 				<Route path="/groups/:id" exact={true}>
@@ -58,6 +62,10 @@ export const MainTabs = () => {
 				<IonTabButton tab="quotes" href="/quotes">
 					<IonIcon ios={chatboxEllipsesOutline} md={chatboxEllipsesSharp} />
 					<IonLabel>Quotes</IonLabel>
+				</IonTabButton>
+
+				<IonTabButton tab="create" href="/create">
+					<IonIcon ios={addCircleOutline} md={addCircleSharp} />
 				</IonTabButton>
 
 				<IonTabButton tab="insights" href="/insights">

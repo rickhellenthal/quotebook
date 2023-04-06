@@ -1,7 +1,5 @@
-import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonSplitPane, IonTabBar, IonTabButton, IonTabs, setupIonicReact } from "@ionic/react";
+import { IonApp, IonRouterOutlet, IonSplitPane, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { Redirect, Route } from "react-router-dom";
-import Menu from "./components/Menu";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -21,26 +19,25 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import { GroupRoute } from "./routes/groupRoute/GroupRoute";
-import { SettingsRoute } from "./routes/settingsRoute/SettingsRoute";
-import { HomeRoute } from "./routes/homeRoute/HomeRoute";
-import { playCircle, radio, library, search } from "ionicons/icons";
 import { MainTabs } from "./routes/MainTabs";
+
+import { Provider } from "react-redux";
+import { store } from "./stores/Store";
 
 setupIonicReact();
 
 export const App: React.FC = () => {
 	return (
 		<IonApp>
-			<IonReactRouter>
-				<IonSplitPane contentId="main">
-					{/* <Menu /> */}
-
-					<IonRouterOutlet id="main">
-						<MainTabs />
-					</IonRouterOutlet>
-				</IonSplitPane>
-			</IonReactRouter>
+			<Provider store={store}>
+				<IonReactRouter>
+					<IonSplitPane contentId="main">
+						<IonRouterOutlet id="main">
+							<MainTabs />
+						</IonRouterOutlet>
+					</IonSplitPane>
+				</IonReactRouter>
+			</Provider>
 		</IonApp>
 	);
 };
