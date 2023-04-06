@@ -10,6 +10,14 @@ import {
 	homeSharp,
 	addOutline,
 	addSharp,
+	chatboxOutline,
+	chatboxSharp,
+	personCircleOutline,
+	personCircleSharp,
+	statsChartOutline,
+	statsChartSharp,
+	chatboxEllipsesOutline,
+	chatboxEllipsesSharp,
 } from "ionicons/icons";
 import { Redirect, Route } from "react-router";
 import { GroupRoute } from "./groupRoute/GroupRoute";
@@ -44,12 +52,22 @@ export const MainTabs = () => {
 			<IonTabBar slot="bottom">
 				<IonTabButton tab="home" href="/home">
 					<IonIcon ios={homeOutline} md={homeSharp} />
-					<IonLabel>Home</IonLabel>
+					<IonLabel>Dashboard</IonLabel>
 				</IonTabButton>
 
-				<IonTabButton tab="create" href="/create">
-					<IonIcon ios={addOutline} md={addSharp} />
-					<IonLabel>Create</IonLabel>
+				<IonTabButton tab="quotes" href="/quotes">
+					<IonIcon ios={chatboxEllipsesOutline} md={chatboxEllipsesSharp} />
+					<IonLabel>Quotes</IonLabel>
+				</IonTabButton>
+
+				<IonTabButton tab="insights" href="/insights">
+					<IonIcon ios={statsChartOutline} md={statsChartSharp} />
+					<IonLabel>Insights</IonLabel>
+				</IonTabButton>
+
+				<IonTabButton tab="account" href="/account">
+					<IonIcon ios={personCircleOutline} md={personCircleSharp} />
+					<IonLabel>Account</IonLabel>
 				</IonTabButton>
 			</IonTabBar>
 		</IonTabs>
