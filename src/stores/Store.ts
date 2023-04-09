@@ -1,9 +1,9 @@
-import { groupSlice } from "./appSlice/AppReducer";
+import { appSlice } from "./appSlice/AppReducer";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
 	reducer: {
-		groupSlice: groupSlice.reducer,
+		appSlice: appSlice.reducer,
 	},
 });
 

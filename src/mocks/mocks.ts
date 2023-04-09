@@ -53,4 +53,34 @@ export const mockQuotes: IQuote[] = [
 		quote: "Als je niet kunt winnen, moet je niet verliezen, toch!",
 		group: mockGroups[0],
 	},
+
+	{
+		id: "6",
+		author: "Johan Cruijff",
+		date: new Date("2019-10-10"),
+		quote: "Elk nadeel heb z'n voordeel",
+		group: mockGroups[1],
+	},
+	{
+		id: "7",
+		author: "Johan Cruijff",
+		date: new Date("2019-10-10"),
+		quote: "Elk nadeel heb z'n voordeel",
+		group: mockGroups[1],
+	},
+	{
+		id: "8",
+		author: "Johan Cruijff",
+		date: new Date("2019-10-10"),
+		quote: "Elk nadeel heb z'n voordeel",
+		group: mockGroups[1],
+	},
+
+	{
+		id: "9",
+		author: "Johan Cruijff",
+		date: new Date("2019-10-10"),
+		quote: "Elk nadeel heb z'n voordeel",
+		group: mockGroups[2],
+	},
 ];

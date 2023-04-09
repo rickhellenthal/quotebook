@@ -4,5 +4,9 @@ import { addOutline } from "ionicons/icons";
 import { mockQuotes } from "../../mocks/mocks";
 
 export const HomeRoute: React.FC = () => {
-	return <Page title={"Home"}></Page>;
+	return (
+		<Page title={"Home"}>
+			<h1>Home</h1>
+		</Page>
+	);
 };
