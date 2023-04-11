@@ -16,20 +16,13 @@ import {
 	IonList,
 	IonTitle,
 	IonToolbar,
+	IonToast,
 } from "@ionic/react";
 import {
-	playCircle,
-	radio,
-	library,
-	search,
 	addCircleOutline,
 	addCircleSharp,
 	homeOutline,
 	homeSharp,
-	addOutline,
-	addSharp,
-	chatboxOutline,
-	chatboxSharp,
 	personCircleOutline,
 	personCircleSharp,
 	statsChartOutline,
@@ -45,11 +38,11 @@ import { CreateRoute } from "./createRoute/CreateRoute";
 import { QuotesRoute } from "./quotesRoute/QuotesRoute";
 import { InsightsRoute } from "./insightsRoute/InsightsRoute";
 import { useEffect, useRef, useState } from "react";
-import { mockGroups } from "../mocks/mocks";
-import { IGroup } from "../interfaces/IGroup";
-import { AppSliceActions, appSlice } from "../stores/appSlice/AppReducer";
+import { AppSliceActions } from "../stores/appSlice/AppReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../stores/Store";
+import { GroupSwitcherModal } from "../components/modals/GroupSwitcher";
+import { CreateQuoteModal } from "../components/modals/CreateQuoteModal";
 
 export const MainTabs = () => {
 	const [presentingElement, setPresentingElement] = useState<HTMLElement | null>(null);
@@ -63,10 +56,10 @@ export const MainTabs = () => {
 	}, []);
 
 	useEffect(() => {
-		if (appSlice.group?.id) {
-			dispatch(AppSliceActions.fetchQuotes(appSlice.group.id));
+		if (appSlice.selectedGroup?.id) {
+			dispatch(AppSliceActions.fetchQuotes(appSlice.selectedGroup.id));
 		}
-	}, [, appSlice.group?.id]);
+	}, [, appSlice.selectedGroup?.id]);
 
 	return (
 		<>
@@ -109,7 +102,7 @@ export const MainTabs = () => {
 						<IonLabel>Quotes</IonLabel>
 					</IonTabButton>
 
-					<IonTabButton tab="create" href="/create">
+					<IonTabButton tab="create" onClick={() => dispatch(AppSliceActions.setCreateQuoteModalIsOpen(true))}>
 						<IonIcon ios={addCircleOutline} md={addCircleSharp} />
 					</IonTabButton>
 
@@ -120,41 +113,13 @@ export const MainTabs = () => {
 
 					<IonTabButton tab="account" href="/account">
 						<IonIcon ios={personCircleOutline} md={personCircleSharp} />
-						<IonLabel>Account</IonLabel>
+						<IonLabel>Profile</IonLabel>
 					</IonTabButton>
 				</IonTabBar>
 			</IonTabs>
 
-			<IonModal isOpen={appSlice.groupSwitcher.isOpen} presentingElement={presentingElement!}>
-				<IonHeader>
-					<IonToolbar>
-						<IonTitle>Switch group</IonTitle>
-						<IonButtons slot="end">
-							<IonButton onClick={() => dispatch(AppSliceActions.setGroupSwitcherIsOpen(false))}>Close</IonButton>
-						</IonButtons>
-					</IonToolbar>
-				</IonHeader>
-				<IonContent>
-					<IonList>
-						{mockGroups.map((group) => (
-							<IonItem
-								onClick={() => {
-									dispatch(AppSliceActions.setGroup(group));
-									dispatch(AppSliceActions.setGroupSwitcherIsOpen(false));
-								}}
-								key={group.id}
-							>
-								<IonAvatar slot="start">
-									<IonImg src="https://i.pravatar.cc/300" />
-								</IonAvatar>
-								<IonLabel>
-									<h2>{group.name}</h2>
-								</IonLabel>
-							</IonItem>
-						))}
-					</IonList>
-				</IonContent>
-			</IonModal>
+			<GroupSwitcherModal presentingElement={presentingElement} />
+			<CreateQuoteModal presentingElement={presentingElement} />
 		</>
 	);
 };

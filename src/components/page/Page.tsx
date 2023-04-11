@@ -28,7 +28,7 @@ export const Page = (props: PageProps) => {
 				)}
 			</IonHeader>
 
-			<IonContent fullscreen>{props.children}</IonContent>
+			<IonContent className="ion-padding">{props.children}</IonContent>
 		</IonPage>
 	);
 };

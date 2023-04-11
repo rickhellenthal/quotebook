@@ -9,7 +9,7 @@ export const QuotesRoute: React.FC = () => {
 	const { appSlice } = useSelector((state: RootState) => state);
 	const dispatch = useDispatch();
 	return (
-		<Page title={"Quotes"} toolbar={<GroupToolbar groupName={appSlice.group?.name} />}>
+		<Page title={"Quotes"} toolbar={<GroupToolbar groupName={appSlice.selectedGroup?.name} />}>
 			{appSlice.quotes.data.map((quote) => (
 				<IonCard key={quote.id}>
 					<IonCardHeader>

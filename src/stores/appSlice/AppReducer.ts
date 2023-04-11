@@ -1,4 +1,3 @@
-import { swapHorizontalOutline } from "ionicons/icons";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { IGroup } from "../../interfaces/IGroup";
@@ -8,19 +7,25 @@ import { StatePieceStatus } from "../../enums/StatePieceStatus";
 import { AppSliceAsyncActions } from "./AppActions";
 
 export interface IAppSliceState {
-	groupSwitcher: {
+	createQuoteModal: {
 		isOpen: boolean;
 	};
-	group: IGroup | null;
+	groupSwitcherModal: {
+		isOpen: boolean;
+	};
+	selectedGroup: IGroup | null;
 	groups: IStatePiece<IGroup[]>;
 	quotes: IStatePiece<IQuote[]>;
 }
 
 const initialState: IAppSliceState = {
-	groupSwitcher: {
+	createQuoteModal: {
 		isOpen: false,
 	},
-	group: null,
+	groupSwitcherModal: {
+		isOpen: false,
+	},
+	selectedGroup: null,
 	groups: {
 		data: [],
 		status: StatePieceStatus.None,
@@ -36,10 +41,13 @@ export const appSlice = createSlice({
 	initialState,
 	reducers: {
 		setGroupSwitcherIsOpen: (state, action: PayloadAction<boolean>) => {
-			state.groupSwitcher.isOpen = action.payload;
+			state.groupSwitcherModal.isOpen = action.payload;
+		},
+		setCreateQuoteModalIsOpen: (state, action: PayloadAction<boolean>) => {
+			state.createQuoteModal.isOpen = action.payload;
 		},
 		setGroup: (state, action: PayloadAction<IGroup | null>) => {
-			state.group = action.payload;
+			state.selectedGroup = action.payload;
 		},
 	},
 	extraReducers: (builder) => {
@@ -52,8 +60,8 @@ export const appSlice = createSlice({
 				state.groups.data = action.payload;
 				state.quotes.status = StatePieceStatus.Success;
 
-				if (!state.group) {
-					state.group = action.payload[0];
+				if (!state.selectedGroup) {
+					state.selectedGroup = action.payload[0];
 				}
 			})
 			.addCase(AppSliceAsyncActions.fetchGroups.rejected, (state) => {
@@ -68,8 +76,8 @@ export const appSlice = createSlice({
 				state.quotes.data = action.payload;
 				state.quotes.status = StatePieceStatus.Success;
 
-				if (!state.group) {
-					state.group = action.payload[0].group;
+				if (!state.selectedGroup) {
+					state.selectedGroup = action.payload[0].group;
 				}
 			})
 			.addCase(AppSliceAsyncActions.fetchQuotes.rejected, (state) => {

@@ -8,7 +8,7 @@ export const InsightsRoute: React.FC = () => {
 	const { appSlice: groupSlice } = useSelector((state: RootState) => state);
 
 	return (
-		<Page title={"Insights"} toolbar={<GroupToolbar groupName={groupSlice.group?.name} />}>
+		<Page title={"Insights"} toolbar={<GroupToolbar groupName={groupSlice.selectedGroup?.name} />}>
 			<IonCard>
 				<IonCardHeader>
 					<IonCardSubtitle>Je laatste quote</IonCardSubtitle>
