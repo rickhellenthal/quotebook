@@ -34,7 +34,6 @@ import { Redirect, Route } from "react-router";
 import { GroupRoute } from "./groupRoute/GroupRoute";
 import { HomeRoute } from "./homeRoute/HomeRoute";
 import { SettingsRoute } from "./settingsRoute/SettingsRoute";
-import { CreateRoute } from "./createRoute/CreateRoute";
 import { QuotesRoute } from "./quotesRoute/QuotesRoute";
 import { InsightsRoute } from "./insightsRoute/InsightsRoute";
 import { useEffect, useRef, useState } from "react";
@@ -76,9 +75,6 @@ export const MainTabs = () => {
 					<Route path="/quotes" exact={true}>
 						<QuotesRoute />
 					</Route>
-					<Route path="/create" exact={true}>
-						<CreateRoute />
-					</Route>
 					<Route path="/insights" exact={true}>
 						<InsightsRoute />
 					</Route>
@@ -118,8 +114,8 @@ export const MainTabs = () => {
 				</IonTabBar>
 			</IonTabs>
 
-			<GroupSwitcherModal presentingElement={presentingElement} />
-			<CreateQuoteModal presentingElement={presentingElement} />
+			{appSlice.groupSwitcherModal.isOpen && <GroupSwitcherModal presentingElement={presentingElement} />}
+			{appSlice.createQuoteModal.isOpen && <CreateQuoteModal presentingElement={presentingElement} />}
 		</>
 	);
 };

@@ -82,6 +82,19 @@ export const appSlice = createSlice({
 			})
 			.addCase(AppSliceAsyncActions.fetchQuotes.rejected, (state) => {
 				state.quotes.status = StatePieceStatus.Error;
+			})
+
+			// Add Quote
+			.addCase(AppSliceAsyncActions.addQuote.pending, (state) => {
+				state.quotes.addStatus = StatePieceStatus.Fetching;
+			})
+			.addCase(AppSliceAsyncActions.addQuote.fulfilled, (state, action) => {
+				state.quotes.data = [...state.quotes.data, action.payload];
+				state.quotes.addStatus = StatePieceStatus.Success;
+				state.createQuoteModal.isOpen = false;
+			})
+			.addCase(AppSliceAsyncActions.addQuote.rejected, (state) => {
+				state.quotes.addStatus = StatePieceStatus.Error;
 			});
 	},
 });

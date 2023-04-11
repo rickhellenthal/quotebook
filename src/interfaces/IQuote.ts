@@ -7,6 +7,7 @@ export interface IQuote {
 	id: string;
 	author: string;
 	quote: string; // TODO will be a list later
-	date: Date;
+	date: string;
 	group: IGroup;
+	context?: string;
 }
