@@ -1,4 +1,4 @@
-import { useParams, Route } from "react-router";
+import { useParams } from "react-router";
 import { mockGroups } from "../../mocks/mocks";
 import { Page } from "../../components/page/Page";
 

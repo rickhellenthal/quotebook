@@ -1,23 +1,4 @@
-import {
-	IonTabs,
-	IonTabBar,
-	IonTabButton,
-	IonIcon,
-	IonLabel,
-	IonRouterOutlet,
-	IonModal,
-	IonAvatar,
-	IonButton,
-	IonButtons,
-	IonContent,
-	IonHeader,
-	IonImg,
-	IonItem,
-	IonList,
-	IonTitle,
-	IonToolbar,
-	IonToast,
-} from "@ionic/react";
+import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonRouterOutlet } from "@ionic/react";
 import {
 	addCircleOutline,
 	addCircleSharp,

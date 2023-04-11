@@ -9,27 +9,38 @@ import {
 	IonInput,
 	IonItem,
 	IonList,
-	IonToast,
 	IonSelect,
 	IonSelectOption,
-	IonAlert,
-	IonDatetime,
+	IonIcon,
+	IonCard,
+	IonCardContent,
+	IonCardHeader,
+	IonCardSubtitle,
+	IonCardTitle,
 } from "@ionic/react";
 import { AppSliceActions } from "../../stores/appSlice/AppReducer";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../stores/Store";
-import { Controller, useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
-import { Field, useFormik } from "formik";
+import { useFormik } from "formik";
 import { IAddQuoteRequest } from "../../interfaces/quotes/IAddQuoteRequest";
-import { StatePieceStatus } from "../../enums/StatePieceStatus";
+import { format } from "date-fns";
+import { chatboxOutline, chatboxSharp, informationCircleSharp, informationOutline, personOutline, personSharp } from "ionicons/icons";
 
 export interface IGroupSwitcherProps {
 	presentingElement: HTMLElement | null;
 }
 
+interface InternalFormProps {
+	groupId: string;
+	quote: string | undefined;
+	context: string | undefined;
+	author: string | undefined;
+	date: string | undefined;
+}
+
+const LABEL_PLACEMENT = "start";
 export const CreateQuoteModal = (props: IGroupSwitcherProps) => {
-	const { createQuoteModal, groups, selectedGroup, quotes } = useSelector((state: RootState) => state.appSlice);
+	const { createQuoteModal, groups, selectedGroup } = useSelector((state: RootState) => state.appSlice);
 	const dispatch = useDispatch<AppDispatch>();
 	const formik = useFormik({
 		initialValues: {
@@ -37,15 +48,14 @@ export const CreateQuoteModal = (props: IGroupSwitcherProps) => {
 			quote: "",
 			context: "",
 			author: "",
-			date: new Date(),
-		},
+			date: format(new Date(), "yyyy-MM-dd") + "T" + format(new Date(), "HH:mm"),
+		} as InternalFormProps,
 		onSubmit: (values) => {
-			console.log("submit!", values);
 			const request: IAddQuoteRequest = {
-				quote: values.quote,
+				quote: values.quote || "",
 				context: values.context,
-				author: values.author,
-				date: values.date.toString(),
+				author: values.author || "",
+				date: values.date || "",
 				groupId: values.groupId,
 			};
 			dispatch(AppSliceActions.addQuote(request));
@@ -56,15 +66,11 @@ export const CreateQuoteModal = (props: IGroupSwitcherProps) => {
 		dispatch(AppSliceActions.setCreateQuoteModalIsOpen(false));
 	};
 
-	const LABEL_PLACEMENT = "floating";
-
-	console.log("values", formik.values);
-
 	return (
 		<IonModal isOpen={createQuoteModal.isOpen} presentingElement={props.presentingElement!} onDidDismiss={() => onClose()}>
 			<IonHeader>
 				<IonToolbar>
-					<IonTitle>Create Quote</IonTitle>
+					<IonTitle>Add a Quote</IonTitle>
 					<IonButtons slot="end">
 						<IonButton onClick={() => onClose()}>Cancel</IonButton>
 					</IonButtons>
@@ -72,61 +78,80 @@ export const CreateQuoteModal = (props: IGroupSwitcherProps) => {
 			</IonHeader>
 			<IonContent className="ion-padding">
 				<form onSubmit={formik.handleSubmit}>
-					<IonList>
-						<IonItem>
-							<IonSelect
-								name="groupId"
-								aria-label="group"
-								onIonChange={formik.handleChange}
-								label={"In welke group hoort deze quote?"}
-								justify="space-between"
-								labelPlacement={LABEL_PLACEMENT}
-								interface="action-sheet"
-								value={formik.values.groupId}
-							>
-								{groups.data.map((group) => (
-									<IonSelectOption key={group.id} value={group.id}>
-										{group.name}
-									</IonSelectOption>
-								))}
-							</IonSelect>
-						</IonItem>
-						<IonItem>
-							<IonInput
-								name="quote"
-								label="Wat is er gezegd?"
-								labelPlacement={LABEL_PLACEMENT}
-								onIonChange={formik.handleChange}
-							></IonInput>
-						</IonItem>
-						<IonItem>
-							<IonInput
-								name="author"
-								label="Door wie?"
-								labelPlacement={LABEL_PLACEMENT}
-								onIonChange={formik.handleChange}
-							></IonInput>
-						</IonItem>
-						<IonItem>
-							<IonInput
-								name="date"
-								label="Wanneer?"
-								type="datetime-local"
-								labelPlacement={LABEL_PLACEMENT}
-								onIonChange={formik.handleChange}
-							></IonInput>
-						</IonItem>
-						<IonItem>
-							<IonInput
-								name="context"
-								label="Context"
-								labelPlacement={LABEL_PLACEMENT}
-								onIonChange={formik.handleChange}
-							></IonInput>
-						</IonItem>
-					</IonList>
+					<IonCard>
+						<IonCardHeader>
+							<IonCardTitle>
+								<IonSelect
+									name="groupId"
+									onIonChange={formik.handleChange}
+									aria-label={"In welke group hoort deze quote?"}
+									placeholder={"In welke group hoort deze quote?"}
+									labelPlacement={LABEL_PLACEMENT}
+									interface="action-sheet"
+									value={formik.values.groupId}
+								>
+									{groups.data.map((group) => (
+										<IonSelectOption key={group.id} value={group.id}>
+											{group.name}
+										</IonSelectOption>
+									))}
+								</IonSelect>
+							</IonCardTitle>
+							<IonCardSubtitle>
+								<IonInput
+									name="date"
+									aria-label="Wanneer?"
+									placeholder="Wanneer?"
+									value={formik.values.date}
+									type="datetime-local"
+									labelPlacement={LABEL_PLACEMENT}
+									onIonChange={formik.handleChange}
+									style={{ minHeight: 0 }}
+								/>
+							</IonCardSubtitle>
+						</IonCardHeader>
+						<IonCardContent className="ion-no-padding">
+							<IonList>
+								<IonItem>
+									<IonIcon slot="start" size="medium" ios={chatboxOutline} md={chatboxSharp} />
+									<IonInput
+										name="quote"
+										aria-label="Wat is er gezegd?"
+										placeholder="Wat is er gezegd?"
+										labelPlacement={LABEL_PLACEMENT}
+										onIonChange={formik.handleChange}
+										fill="solid"
+									/>
+								</IonItem>
 
-					<IonButton expand="block" type="submit">
+								<IonItem>
+									<IonIcon slot="start" size="medium" ios={personOutline} md={personSharp} />
+									<IonInput
+										name="author"
+										aria-label="Door wie?"
+										placeholder="Door wie?"
+										labelPlacement={LABEL_PLACEMENT}
+										onIonChange={formik.handleChange}
+										fill="solid"
+									/>
+								</IonItem>
+
+								<IonItem>
+									<IonIcon slot="start" size="medium" ios={informationOutline} md={informationCircleSharp} />
+									<IonInput
+										name="context"
+										aria-label="Context"
+										placeholder="Context"
+										labelPlacement={LABEL_PLACEMENT}
+										onIonChange={formik.handleChange}
+										fill="solid"
+									/>
+								</IonItem>
+							</IonList>
+						</IonCardContent>
+					</IonCard>
+
+					<IonButton expand="block" type="submit" className="ion-padding-horizontal">
 						Add
 					</IonButton>
 				</form>

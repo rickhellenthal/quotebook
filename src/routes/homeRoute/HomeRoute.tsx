@@ -1,4 +1,4 @@
-import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonLabel } from "@ionic/react";
+import { IonCard, IonCardHeader, IonCardSubtitle, IonCardContent, IonLabel } from "@ionic/react";
 import { Page } from "../../components/page/Page";
 import { useSelector } from "react-redux";
 import { RootState } from "../../stores/Store";

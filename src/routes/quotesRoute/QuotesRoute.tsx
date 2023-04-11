@@ -1,6 +1,5 @@
 import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle } from "@ionic/react";
 import { Page } from "../../components/page/Page";
-import { mockQuotes } from "../../mocks/mocks";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../stores/Store";
 import { GroupToolbar } from "../../components/toolbar";
